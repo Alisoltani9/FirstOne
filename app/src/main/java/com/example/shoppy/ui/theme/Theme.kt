@@ -1,58 +1,43 @@
 package com.example.shoppy.ui.theme
 
-import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import com.example.shoppy.core.common.CustomColors
+import com.example.shoppy.core.common.LocalCustomColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+
+val LightCustomColors = CustomColors(
+    primaryText = Color(0xFF212121),   // Dark gray for primary text (strong contrast)
+    secondaryText = Color(0xFF757575), // Medium gray for secondary text
+    thirdText = Color(0xFF000000), // Black
+    primaryBackground = Color(0xFFFFFFFF),  // Clean white background
+    SecondaryBackground = Color(0xFFEEEEEE), // Light gray for secondary background
+    cardBackground = Color(0xFFFFFFFF), // White for cards
+    highlight = Color(0xFF212121)       // Vibrant purple for highlights
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+val DarkCustomColors = CustomColors(
+    primaryText = Color(0xFFFFFFFF),   // White
+    secondaryText = Color(0xFF80C784), // Medium gray for secondary text
+    thirdText = Color(0xFFFFFFFF), // White
+    primaryBackground = Color(0xFF2C2C2C),  // Dark gray background
+    SecondaryBackground = Color(0xFF424242), // Slightly lighter dark gray for secondary backgrounds
+    cardBackground = Color(0xFF616161), // Muted gray for cards
+    highlight = Color(0xFFB0B0B0)       // Soft green accent (calm and clean)
 )
 
 @Composable
 fun ShoppyTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    useDarkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colors = when {
+        useDarkTheme -> DarkCustomColors
+        else -> LightCustomColors
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(LocalCustomColors provides colors) {
+        content()
+    }
 }
