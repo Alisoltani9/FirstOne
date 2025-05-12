@@ -10,7 +10,12 @@ import com.example.shoppy.data.local.entity.cartEntity
 import com.example.shoppy.data.local.entity.orderEntity
 import com.example.shoppy.data.local.entity.productEntity
 
-@Database(entities = [cartEntity::class, orderEntity::class, productEntity::class], version = 1)
+@Database(
+    entities = [cartEntity::class, orderEntity::class, productEntity::class],
+    version = 1,
+    exportSchema = false
+
+)
 abstract class AppDatabase: RoomDatabase()
 {
     companion object{

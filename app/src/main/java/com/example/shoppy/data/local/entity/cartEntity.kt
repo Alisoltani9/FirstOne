@@ -2,6 +2,7 @@ package com.example.shoppy.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
@@ -11,7 +12,9 @@ import androidx.room.PrimaryKey
         parentColumns = ["id"],
         childColumns = ["productId"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index(value = ["productId"])]
+
 )
 data class cartEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,

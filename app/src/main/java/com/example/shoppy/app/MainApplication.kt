@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.example.shoppy.data.local.db.AppDatabase
 
-class mainApplication: Application() {
+class MainApplication: Application() {
 
     companion object {
         lateinit var appDatabase: AppDatabase

@@ -1,5 +1,6 @@
 package com.example.shoppy.data.local.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,6 +9,8 @@ import androidx.room.Update
 import com.example.shoppy.data.local.entity.cartEntity
 import kotlinx.coroutines.flow.Flow
 
+
+@Dao
 interface CartDao {
 
     @Query("SELECT * FROM cart")
